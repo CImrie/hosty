@@ -21,7 +21,11 @@ libxml_use_internal_errors(true);
 use PHPHtmlParser\Dom;
 $dom = new Dom;
 $dom->load($content->getBody()->getContents());
-$dom->find('meta')->delete();
+$meta = $dom->find('meta');
+if($meta != null && method_exists($meta, 'delete'))
+{
+    $meta->delete();
+}
 
 $html = $dom->innerHtml;
 
